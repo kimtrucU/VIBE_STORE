@@ -1,24 +1,22 @@
 #!/bin/bash
-set -e
 
 echo "🚀 Starting Vibe Fashion..."
 
-# Chạy migration trong background để không block Apache khởi động
-(php artisan migrate --force 2>&1 || true) &
+# Render yêu cầu app lắng nghe trên $PORT (mặc định 10000)
+APP_PORT="${PORT:-8080}"
 
-# Cache cấu hình, routes, views để tăng hiệu suất
+# Cache cấu hình, routes, views (không block nếu lỗi)
 php artisan config:cache || true
 php artisan route:cache || true
 php artisan view:cache || true
 
-# Tạo storage symlink cho upload ảnh
+# Tạo storage symlink
 php artisan storage:link || true
 
-echo "✅ Setup hoàn tất. Khởi động Apache..."
+# Chạy migrate trong nền
+php artisan migrate --force &
 
-# Fix port binding for Render (Render passes $PORT, usually 10000)
-sed -i "s/80/${PORT:-80}/g" /etc/apache2/ports.conf
-sed -i "s/:80/:${PORT:-80}/g" /etc/apache2/sites-available/000-default.conf
+echo "✅ Khởi động PHP server trên port $APP_PORT..."
 
-# Khởi động Apache ngay lập tức
-apache2-foreground
+# Dùng php artisan serve để đảm bảo lắng nghe đúng port Render yêu cầu
+exec php artisan serve --host=0.0.0.0 --port="$APP_PORT"
