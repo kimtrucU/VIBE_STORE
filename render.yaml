@@ -18,19 +18,19 @@ services:
         # Render sẽ tự động điền domain của bạn sau khi deploy
         value: https://vibe-admin-api.onrender.com
 
-      # Database InfinityFree (giữ nguyên DB cũ)
+      # Database TiDB Serverless
       - key: DB_CONNECTION
         value: mysql
       - key: DB_HOST
-        value: sql307.infinityfree.com
+        value: gateway01.ap-southeast-1.prod.aws.tidbcloud.com
       - key: DB_PORT
-        value: 3306
+        value: 4000
       - key: DB_DATABASE
-        value: if0_42535384_vibe
+        value: test
       - key: DB_USERNAME
-        value: if0_42535384
+        value: 432CnJ3E1mRpuy1.root
       - key: DB_PASSWORD
-        value: 080706Tiew
+        value: wIzsHWkKRiHq6xxT
 
       # Firebase (để xác thực token từ React Netlify)
       - key: FIREBASE_PROJECT_ID
