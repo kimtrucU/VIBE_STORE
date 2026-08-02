@@ -17,6 +17,8 @@ services:
       - key: APP_URL
         # Render sẽ tự động điền domain của bạn sau khi deploy
         value: https://vibe-admin-api.onrender.com
+      - key: ASSET_URL
+        value: https://vibe-admin-api.onrender.com
 
       # Database TiDB Serverless
       - key: DB_CONNECTION
