@@ -1,0 +1,11 @@
+[build]
+  # Lệnh build React SPA sử dụng Vite config riêng (không có Laravel plugin)
+  command = "npm run build:netlify"
+  # Thư mục chứa file build (React SPA)
+  publish = "dist"
+
+# Đảm bảo React Router hoạt động (trả về index.html cho tất cả path)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

@@ -1,0 +1,34 @@
+{
+    "$schema": "https://www.schemastore.org/package.json",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "build:netlify": "vite build --config vite.netlify.config.js",
+        "dev": "vite",
+        "dev:netlify": "vite --config vite.netlify.config.js"
+    },
+    "devDependencies": {
+        "@fortawesome/fontawesome-free": "^6.5.0",
+        "@tailwindcss/vite": "^4.3.3",
+        "bootstrap": "^5.3.3",
+        "concurrently": "^9.0.1",
+        "laravel-vite-plugin": "^3.1",
+        "sass": "^1.70.0",
+        "tailwindcss": "^4.3.3",
+        "vite": "^8.0.0"
+    },
+    "dependencies": {
+        "@vitejs/plugin-react": "^6.0.3",
+        "dotenv": "^17.4.2",
+        "drizzle-orm": "^0.45.2",
+        "express": "^5.2.1",
+        "firebase": "^12.16.0",
+        "firebase-admin": "^14.2.0",
+        "lucide-react": "^1.25.0",
+        "motion": "^12.42.2",
+        "pg": "^8.22.0",
+        "react": "^19.2.7",
+        "react-dom": "^19.2.7"
+    }
+}

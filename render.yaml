@@ -1,0 +1,50 @@
+services:
+  - type: web
+    name: vibe-admin-api
+    env: docker
+    plan: free
+    # Chờ healthcheck endpoint phản hồi trước khi chuyển traffic
+    healthCheckPath: /up
+    envVars:
+      - key: APP_NAME
+        value: "Vibe Fashion"
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_URL
+        # Render sẽ tự động điền domain của bạn sau khi deploy
+        value: https://vibe-admin-api.onrender.com
+
+      # Database InfinityFree (giữ nguyên DB cũ)
+      - key: DB_CONNECTION
+        value: mysql
+      - key: DB_HOST
+        value: sql307.infinityfree.com
+      - key: DB_PORT
+        value: 3306
+      - key: DB_DATABASE
+        value: if0_42535384_vibe
+      - key: DB_USERNAME
+        value: if0_42535384
+      - key: DB_PASSWORD
+        value: 080706Tiew
+
+      # Firebase (để xác thực token từ React Netlify)
+      - key: FIREBASE_PROJECT_ID
+        value: prefab-quote-q3bk6
+
+      # URL của frontend Netlify (để cấu hình CORS)
+      - key: FRONTEND_URL
+        # Điền URL Netlify của bạn sau khi deploy
+        value: https://vibeshop.netlify.app
+
+      # Cache & Session
+      - key: CACHE_DRIVER
+        value: file
+      - key: SESSION_DRIVER
+        value: file
+      - key: QUEUE_CONNECTION
+        value: sync
