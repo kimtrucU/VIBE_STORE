@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: vibe-admin-api
+    name: KIMVIBESTORE
     env: docker
     plan: free
     # Không dùng healthCheckPath để tránh timeout trên free plan
@@ -14,7 +14,7 @@ services:
       - key: APP_KEY
         value: base64:+a41qblSk1RIlxmgZWG3U0bafEl/1WgQ2dUxxXFvb14=
       - key: APP_URL
-        value: https://vibe-admin-api.onrender.com
+        value: https://kimvibestore.onrender.com
 
 
       # Database TiDB Serverless
