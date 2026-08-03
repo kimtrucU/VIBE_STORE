@@ -93,30 +93,15 @@
     @endphp
 
     @if(count($musicFiles) > 0)
-        <!-- Music Player UI -->
-        <div id="vibe-music-player" title="Bật/Tắt Nhạc" style="position:fixed;bottom:24px;left:24px;z-index:9999;cursor:pointer;background:#1f2937;color:#fff;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.2);transition:all 0.3s;" onclick="toggleMusic()">
-            <svg id="music-icon" style="width:20px;height:20px;fill:currentColor;" viewBox="0 0 512 512">
-                <!-- fa-music path -->
-                <path d="M499.1 6.3c8.1 6 12.9 15.6 12.9 25.7v72V268c0 44.2-43 80-96 80s-96-35.8-96-80s43-80 96-80c11.2 0 22 1.6 32 4.6V147L192 223.8V428c0 44.2-43 80-96 80s-96-35.8-96-80s43-80 96-80c11.2 0 22 1.6 32 4.6V200 128c0-14.1 9.3-26.6 22.8-30.7l320-96c9.7-2.9 20.2-1.5 28.3 5z"/>
-            </svg>
-        </div>
-
-        <audio id="vibe-bg-music" preload="auto">
+        <!-- Hidden Audio Player -->
+        <audio id="vibe-bg-music" autoplay preload="auto">
             <source src="{{ $musicFiles[0] }}" type="audio/mpeg">
         </audio>
-
-        <style>
-            @keyframes spin-slow { 100% { transform: rotate(360deg); } }
-            .vibe-music-spin { animation: spin-slow 4s linear infinite; }
-            #vibe-music-player:hover { transform: scale(1.1); }
-        </style>
 
         <script>
             const playlist = @json($musicFiles);
             let currentTrack = 0;
             const audio = document.getElementById('vibe-bg-music');
-            const musicIcon = document.getElementById('music-icon');
-            const playerBtn = document.getElementById('vibe-music-player');
             let isPlaying = false;
 
             // Đổi bài khi kết thúc
@@ -126,21 +111,7 @@
                 audio.play();
             });
 
-            function toggleMusic(e) {
-                if(e) e.stopPropagation();
-                if (isPlaying) {
-                    audio.pause();
-                    musicIcon.classList.remove('vibe-music-spin');
-                    playerBtn.style.background = '#6b7280'; // xám khi tắt
-                } else {
-                    audio.play();
-                    musicIcon.classList.add('vibe-music-spin');
-                    playerBtn.style.background = '#000';
-                }
-                isPlaying = !isPlaying;
-            }
-
-            // Tự động play (hoặc chờ user click đầu tiên nếu trình duyệt chặn autoplay)
+            // Tự động phát (hoặc chờ click đầu tiên nếu bị trình duyệt chặn)
             document.addEventListener('DOMContentLoaded', () => {
                 // Đặt volume vừa phải
                 audio.volume = 0.5;
@@ -149,17 +120,12 @@
                 if (playPromise !== undefined) {
                     playPromise.then(_ => {
                         isPlaying = true;
-                        musicIcon.classList.add('vibe-music-spin');
-                        playerBtn.style.background = '#000';
                     }).catch(error => {
                         // Trình duyệt chặn autoplay, chờ click bất kỳ vào trang
-                        playerBtn.style.background = '#6b7280';
                         const startOnInteraction = () => {
                             if (!isPlaying) {
                                 audio.play().then(() => {
                                     isPlaying = true;
-                                    musicIcon.classList.add('vibe-music-spin');
-                                    playerBtn.style.background = '#000';
                                 }).catch(e => console.log('Audio error:', e));
                             }
                             document.removeEventListener('click', startOnInteraction);
