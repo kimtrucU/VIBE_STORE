@@ -32,7 +32,7 @@ class CheckoutController extends Controller
             'shipping_phone'   => 'required|string|max:20',
             'shipping_address' => 'required|string|max:500',
             'shipping_city'    => 'required|string|max:100',
-            'payment_method'   => 'required|in:COD,bank_transfer,momo,sepay',
+            'payment_method'   => 'required|in:COD,bank_transfer,sepay',
             'notes'            => 'nullable|string|max:1000',
         ]);
 

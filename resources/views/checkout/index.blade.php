@@ -72,7 +72,7 @@
                             <h2 class="vibe-form-section-title">2. Payment Method</h2>
                             <div class="row g-3">
                                 {{-- COD --}}
-                                <div class="col-sm-6 col-lg-3">
+                                <div class="col-sm-6 col-lg-4">
                                     <label class="vibe-payment-option {{ old('payment_method', 'COD') === 'COD' ? 'active' : '' }}">
                                         <input type="radio" name="payment_method" value="COD"
                                             {{ old('payment_method', 'COD') === 'COD' ? 'checked' : '' }}
@@ -82,20 +82,8 @@
                                         <span class="vibe-text-xs text-muted mt-1">Trả tiền khi nhận hàng</span>
                                     </label>
                                 </div>
-                                {{-- MoMo --}}
-                                <div class="col-sm-6 col-lg-3">
-                                    <label class="vibe-payment-option {{ old('payment_method') === 'momo' ? 'active' : '' }}">
-                                        <input type="radio" name="payment_method" value="momo"
-                                            {{ old('payment_method') === 'momo' ? 'checked' : '' }}
-                                            class="vibe-radio-hidden" onchange="updatePaymentSelection(this)">
-                                        <img src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png"
-                                             style="width:28px;height:28px;border-radius:6px;object-fit:cover;" alt="MoMo">
-                                        <span class="fw-bold text-danger mt-1">MoMo Wallet</span>
-                                        <span class="vibe-text-xs text-muted mt-1">Quét QR qua app MoMo</span>
-                                    </label>
-                                </div>
                                 {{-- Bank Transfer --}}
-                                <div class="col-sm-6 col-lg-3">
+                                <div class="col-sm-6 col-lg-4">
                                     <label class="vibe-payment-option {{ old('payment_method') === 'bank_transfer' ? 'active' : '' }}">
                                         <input type="radio" name="payment_method" value="bank_transfer"
                                             {{ old('payment_method') === 'bank_transfer' ? 'checked' : '' }}
@@ -106,7 +94,7 @@
                                     </label>
                                 </div>
                                 {{-- SePay --}}
-                                <div class="col-sm-6 col-lg-3">
+                                <div class="col-sm-6 col-lg-4">
                                     <label class="vibe-payment-option vibe-payment-sepay {{ old('payment_method') === 'sepay' ? 'active' : '' }}">
                                         <input type="radio" name="payment_method" value="sepay"
                                             {{ old('payment_method') === 'sepay' ? 'checked' : '' }}
@@ -329,8 +317,6 @@ function handleCheckoutSubmit() {
 
     if (method === 'bank_transfer') {
         openBankTransferModal();
-    } else if (method === 'momo') {
-        openMomoModal();
     } else if (method === 'sepay') {
         openSepayModal();
     } else {
@@ -364,40 +350,10 @@ function openBankTransferModal() {
 
     // Show / hide boxes
     document.getElementById('bank-info-box').style.display = 'block';
-    document.getElementById('momo-info-box').style.display = 'none';
+    document.getElementById('bank-info-box').style.display = 'block';
 
     // Store content to hidden input
     setHiddenTransferContent(content);
-
-    showModal();
-}
-
-function openMomoModal() {
-    const total  = getOrderTotal();
-    const rawAmt = total.replace(/[^0-9]/g, '');
-    const note   = 'VIBE' + Date.now().toString().slice(-6);
-
-    // Header
-    document.getElementById('modal-header').style.background = '#ae2d68';
-    document.getElementById('modal-icon').innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/vi/f/fe/MoMo_Logo.png" style="width:28px;height:28px;border-radius:6px;object-fit:cover;">';
-    document.getElementById('modal-title').textContent = 'Ví MoMo';
-    document.getElementById('modal-subtitle').textContent = 'Quét mã QR qua ứng dụng MoMo';
-    document.getElementById('modal-amount').textContent = total;
-
-    // MoMo QR (fake - sử dụng QR generator với thông tin MoMo)
-    const momoData = `2|99|${MOMO_CONFIG.phone}|${MOMO_CONFIG.name}|0|0|${rawAmt}|${note}|transfer_myqr`;
-    const qrUrl    = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=8&data=${encodeURIComponent(momoData)}`;
-    document.getElementById('modal-qr-img').src = qrUrl;
-    document.getElementById('modal-instruction').textContent = 'Mở app MoMo → Nhấn Quét → Hướng camera vào mã QR → Xác nhận thanh toán';
-
-    // MoMo info
-    document.getElementById('mm-phone').textContent = MOMO_CONFIG.phone;
-    document.getElementById('mm-name').textContent  = MOMO_CONFIG.name;
-    document.getElementById('mm-note').textContent  = note;
-
-    // Show / hide boxes
-    document.getElementById('momo-info-box').style.display = 'block';
-    document.getElementById('bank-info-box').style.display = 'none';
 
     showModal();
 }
@@ -436,7 +392,6 @@ function openSepayModal() {
     bankBox.querySelector('div').textContent = '⚡ THÔNG TIN SEPAY — QUAN TRỌNG: sao chép đúng nội dung CK';
 
     document.getElementById('bank-info-box').style.display = 'block';
-    document.getElementById('momo-info-box').style.display = 'none';
 
     setHiddenTransferContent(content);
     showModal();
