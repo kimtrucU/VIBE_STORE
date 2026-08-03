@@ -121,16 +121,25 @@
                     playPromise.then(_ => {
                         isPlaying = true;
                     }).catch(error => {
-                        // Trình duyệt chặn autoplay, chờ click bất kỳ vào trang
+                        // Trình duyệt chặn autoplay, chờ tương tác (lướt, chạm, click)
                         const startOnInteraction = () => {
                             if (!isPlaying) {
                                 audio.play().then(() => {
                                     isPlaying = true;
+                                    removeListeners();
                                 }).catch(e => console.log('Audio error:', e));
+                            } else {
+                                removeListeners();
                             }
-                            document.removeEventListener('click', startOnInteraction);
                         };
-                        document.addEventListener('click', startOnInteraction);
+                        
+                        const events = ['click', 'touchstart', 'scroll', 'keydown', 'mousemove'];
+                        
+                        function removeListeners() {
+                            events.forEach(evt => document.removeEventListener(evt, startOnInteraction));
+                        }
+                        
+                        events.forEach(evt => document.addEventListener(evt, startOnInteraction, { once: true, passive: true }));
                     });
                 }
             });
