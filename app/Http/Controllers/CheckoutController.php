@@ -32,7 +32,7 @@ class CheckoutController extends Controller
             'shipping_phone'   => 'required|string|max:20',
             'shipping_address' => 'required|string|max:500',
             'shipping_city'    => 'required|string|max:100',
-            'payment_method'   => 'required|in:COD,bank_transfer,momo',
+            'payment_method'   => 'required|in:COD,bank_transfer,momo,sepay',
             'notes'            => 'nullable|string|max:1000',
         ]);
 
@@ -51,11 +51,21 @@ class CheckoutController extends Controller
         try {
             DB::beginTransaction();
 
+            // Tạo mã nội dung CK cho SePay/bank_transfer
+            $transferContent = null;
+            if (in_array($validated['payment_method'], ['sepay', 'bank_transfer'])) {
+                // Lấy từ form (frontend đã sinh) hoặc tự tạo mới
+                $transferContent = $request->input('transfer_content')
+                    ?: 'VIBE' . substr(time(), -8);
+            }
+
             $order = Order::create([
                 'user_id'          => auth()->id(),
                 'order_number'     => Order::generateOrderNumber(),
                 'status'           => 'pending',
                 'payment_method'   => $validated['payment_method'],
+                'payment_status'   => 'unpaid',
+                'transfer_content' => $transferContent,
                 'subtotal'         => $subtotal,
                 'shipping_fee'     => $shippingFee,
                 'total'            => $total,

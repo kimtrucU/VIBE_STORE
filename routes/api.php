@@ -4,8 +4,13 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\OrderApiController;
 use App\Http\Controllers\Api\ProductApiController;
 use App\Http\Controllers\Api\WishlistApiController;
+use App\Http\Controllers\Api\SepayWebhookController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+// ─── SEPAY WEBHOOK (public, no auth) ───────────────────────────────────────────
+Route::post('/sepay/webhook', [SepayWebhookController::class, 'handle']);
+
 
 // ─── PUBLIC ROUTES ───────────────────────────────────────────────────────────
 

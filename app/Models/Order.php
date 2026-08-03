@@ -11,6 +11,7 @@ class Order extends Model
 
     protected $fillable = [
         'user_id', 'order_number', 'status', 'payment_method',
+        'payment_status', 'transfer_content', 'paid_at', 'sepay_data',
         'subtotal', 'shipping_fee', 'discount', 'coupon_code', 'total',
         'shipping_name', 'shipping_email', 'shipping_phone',
         'shipping_address', 'shipping_city', 'notes',
@@ -22,17 +23,19 @@ class Order extends Model
     protected function casts(): array
     {
         return [
-            'subtotal'      => 'decimal:2',
-            'shipping_fee'  => 'decimal:2',
-            'discount'      => 'decimal:2',
-            'total'         => 'decimal:2',
-            'confirmed_at'  => 'datetime',
-            'processed_at'  => 'datetime',
-            'shipped_at'    => 'datetime',
-            'delivered_at'  => 'datetime',
-            'completed_at'  => 'datetime',
-            'cancelled_at'  => 'datetime',
-            'returned_at'   => 'datetime',
+            'subtotal'       => 'decimal:2',
+            'shipping_fee'   => 'decimal:2',
+            'discount'       => 'decimal:2',
+            'total'          => 'decimal:2',
+            'confirmed_at'   => 'datetime',
+            'processed_at'   => 'datetime',
+            'shipped_at'     => 'datetime',
+            'delivered_at'   => 'datetime',
+            'completed_at'   => 'datetime',
+            'cancelled_at'   => 'datetime',
+            'returned_at'    => 'datetime',
+            'paid_at'        => 'datetime',
+            'sepay_data'     => 'array',
         ];
     }
 

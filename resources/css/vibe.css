@@ -1228,6 +1228,9 @@ html { scroll-behavior: smooth; }
     align-items: center;
     text-align: center;
     padding: 16px 12px;
+    min-height: 90px;
+    justify-content: center;
+    gap: 4px;
     border: 2px solid var(--vibe-gray-200);
     border-radius: 4px;
     cursor: pointer;
@@ -1236,7 +1239,10 @@ html { scroll-behavior: smooth; }
 }
 .vibe-payment-option:hover { border-color: var(--vibe-gray-400); }
 .vibe-payment-option.active { border-color: var(--vibe-black); background: var(--vibe-gray-50); }
+.vibe-payment-option.vibe-payment-sepay.active { border-color: #f97316; background: #fff7ed; }
+.vibe-payment-option.vibe-payment-sepay:hover { border-color: #fb923c; }
 .vibe-radio-hidden { position: absolute; opacity: 0; pointer-events: none; }
+
 
 /* ── Checkout ────────────────────────────────────────────────── */
 .vibe-checkout-items { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }

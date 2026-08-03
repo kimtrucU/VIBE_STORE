@@ -39,4 +39,11 @@ return [
         'project_id' => env('FIREBASE_PROJECT_ID', 'prefab-quote-q3bk6'),
     ],
 
+    'sepay' => [
+        'webhook_token' => env('SEPAY_WEBHOOK_TOKEN', ''),
+        'bank_code'     => env('SEPAY_BANK_CODE', 'MB'),
+        'account'       => env('SEPAY_ACCOUNT', '080717072006'),
+        'account_name'  => env('SEPAY_ACCOUNT_NAME', 'UNG KIM TRUC'),
+    ],
+
 ];
