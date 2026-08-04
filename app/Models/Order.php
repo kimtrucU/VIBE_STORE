@@ -45,14 +45,14 @@ class Order extends Model
     ];
 
     public static $statusLabels = [
-        'pending'    => 'Chờ xác nhận',
-        'confirmed'  => 'Đã xác nhận',
-        'processing' => 'Đang xử lý',
-        'shipped'    => 'Đang giao',
-        'delivered'  => 'Đã giao',
-        'completed'  => 'Hoàn thành',
-        'cancelled'  => 'Đã hủy',
-        'returned'   => 'Hoàn trả',
+        'pending'    => 'Pending',
+        'confirmed'  => 'Confirmed',
+        'processing' => 'Processing',
+        'shipped'    => 'Shipped',
+        'delivered'  => 'Delivered',
+        'completed'  => 'Completed',
+        'cancelled'  => 'Cancelled',
+        'returned'   => 'Returned',
     ];
 
     public function user()

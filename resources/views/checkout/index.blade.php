@@ -79,7 +79,7 @@
                                             class="vibe-radio-hidden" onchange="updatePaymentSelection(this)">
                                         <span style="font-size:20px;">🚚</span>
                                         <span class="fw-bold mt-1">Cash on Delivery</span>
-                                        <span class="vibe-text-xs text-muted mt-1">Trả tiền khi nhận hàng</span>
+                                        <span class="vibe-text-xs text-muted mt-1">Pay when received</span>
                                     </label>
                                 </div>
                                 {{-- Bank Transfer --}}
@@ -104,7 +104,7 @@
                                              style="height:26px;object-fit:contain;" alt="SePay">
                                         <span style="display:none;align-items:center;gap:4px;font-weight:700;color:#f97316;font-size:15px;">⚡ SePay</span>
                                         <span class="fw-bold mt-1" style="color:#f97316;">SePay</span>
-                                        <span class="vibe-text-xs text-muted mt-1">Thanh toán tự động</span>
+                                        <span class="vibe-text-xs text-muted mt-1">Automatic Payment</span>
                                     </label>
                                 </div>
                             </div>
@@ -204,7 +204,7 @@
 
         {{-- Amount info --}}
         <div style="background:#f8f8f8;border-radius:12px;padding:14px 18px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;">
-            <span style="font-size:13px;color:#666;">Số tiền cần thanh toán</span>
+            <span style="font-size:13px;color:#666;">Amount to pay</span>
             <span id="modal-amount" style="font-size:20px;font-weight:800;color:#1a1a1a;font-family:monospace;"></span>
         </div>
 
@@ -218,22 +218,22 @@
 
         {{-- Bank Info (SePay only) --}}
         <div id="bank-info-box" style="display:none;background:#f0f6ff;border:1px solid #d0e4ff;border-radius:12px;padding:14px 18px;margin-bottom:20px;">
-            <div style="font-size:12px;color:#1a56db;font-weight:700;margin-bottom:10px;letter-spacing:.5px;">THÔNG TIN CHUYỂN KHOẢN</div>
+            <div style="font-size:12px;color:#1a56db;font-weight:700;margin-bottom:10px;letter-spacing:.5px;">TRANSFER INFORMATION</div>
             <div style="display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:13px;">
-                <span style="color:#666;">Ngân hàng:</span>  <span id="bk-bank" style="font-weight:600;"></span>
-                <span style="color:#666;">Số TK:</span>       <span id="bk-acc" style="font-weight:700;font-family:monospace;letter-spacing:1px;"></span>
-                <span style="color:#666;">Chủ TK:</span>      <span id="bk-name" style="font-weight:600;"></span>
-                <span style="color:#666;">Nội dung CK:</span> <span id="bk-content" style="font-weight:700;color:#1a56db;font-family:monospace;"></span>
+                <span style="color:#666;">Bank:</span>  <span id="bk-bank" style="font-weight:600;"></span>
+                <span style="color:#666;">Account No:</span>       <span id="bk-acc" style="font-weight:700;font-family:monospace;letter-spacing:1px;"></span>
+                <span style="color:#666;">Account Name:</span>      <span id="bk-name" style="font-weight:600;"></span>
+                <span style="color:#666;">Content:</span> <span id="bk-content" style="font-weight:700;color:#1a56db;font-family:monospace;"></span>
             </div>
         </div>
 
         {{-- MoMo Info --}}
         <div id="momo-info-box" style="display:none;background:#fff0f7;border:1px solid #ffd0ea;border-radius:12px;padding:14px 18px;margin-bottom:20px;">
-            <div style="font-size:12px;color:#ae2d68;font-weight:700;margin-bottom:10px;letter-spacing:.5px;">THÔNG TIN MOMO</div>
+            <div style="font-size:12px;color:#ae2d68;font-weight:700;margin-bottom:10px;letter-spacing:.5px;">MOMO INFORMATION</div>
             <div style="display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:13px;">
-                <span style="color:#666;">Số điện thoại:</span> <span id="mm-phone" style="font-weight:700;font-family:monospace;letter-spacing:1px;"></span>
-                <span style="color:#666;">Tên:</span>            <span id="mm-name" style="font-weight:600;"></span>
-                <span style="color:#666;">Lời nhắn:</span>       <span id="mm-note" style="font-weight:700;color:#ae2d68;font-family:monospace;"></span>
+                <span style="color:#666;">Phone Number:</span> <span id="mm-phone" style="font-weight:700;font-family:monospace;letter-spacing:1px;"></span>
+                <span style="color:#666;">Name:</span>            <span id="mm-name" style="font-weight:600;"></span>
+                <span style="color:#666;">Message:</span>       <span id="mm-note" style="font-weight:700;color:#ae2d68;font-family:monospace;"></span>
             </div>
         </div>
 
@@ -241,14 +241,14 @@
         <div style="text-align:center;margin-bottom:20px;">
             <div style="display:inline-flex;align-items:center;gap:6px;background:#fff8e6;border:1px solid #fde68a;border-radius:8px;padding:6px 14px;font-size:12px;color:#92400e;">
                 <span>⏱</span>
-                <span>Mã hết hạn sau: <strong id="countdown-timer" style="font-family:monospace;font-size:14px;">15:00</strong></span>
+                <span>Code expires in: <strong id="countdown-timer" style="font-family:monospace;font-size:14px;">15:00</strong></span>
             </div>
         </div>
 
         {{-- Actions --}}
         <div style="display:flex;gap:10px;">
-            <button onclick="closePaymentModal()" style="flex:1;padding:12px;background:#f5f5f5;border:none;border-radius:10px;font-weight:600;font-size:14px;cursor:pointer;color:#555;">Quay lại</button>
-            <button id="confirm-paid-btn" onclick="confirmAndSubmit()" style="flex:2;padding:12px;background:#1a1a1a;color:#fff;border:none;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;letter-spacing:.5px;">✓ Đã thanh toán — Đặt hàng</button>
+            <button onclick="closePaymentModal()" style="flex:1;padding:12px;background:#f5f5f5;border:none;border-radius:10px;font-weight:600;font-size:14px;cursor:pointer;color:#555;">Go back</button>
+            <button id="confirm-paid-btn" onclick="confirmAndSubmit()" style="flex:2;padding:12px;background:#1a1a1a;color:#fff;border:none;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;letter-spacing:.5px;">✓ I have paid — Place Order</button>
         </div>
     </div>
 </div>
@@ -333,14 +333,14 @@ function openBankTransferModal() {
     // Header
     document.getElementById('modal-header').style.background = '#1a56db';
     document.getElementById('modal-icon').innerHTML = '🏦';
-    document.getElementById('modal-title').textContent = 'Chuyển khoản ngân hàng';
-    document.getElementById('modal-subtitle').textContent = 'Quét mã QR để thanh toán';
+    document.getElementById('modal-title').textContent = 'Bank Transfer';
+    document.getElementById('modal-subtitle').textContent = 'Scan QR code to pay';
     document.getElementById('modal-amount').textContent = total;
 
     // QR VietQR (SePay compatible)
     const qrUrl = `https://img.vietqr.io/image/${SEPAY_CONFIG.bankCode}-${SEPAY_CONFIG.accountNumber}-${SEPAY_CONFIG.template}.png?amount=${rawAmt}&addInfo=${content}&accountName=${encodeURIComponent(SEPAY_CONFIG.accountName)}`;
     document.getElementById('modal-qr-img').src = qrUrl;
-    document.getElementById('modal-instruction').textContent = 'Mở app ngân hàng → Quét QR → Kiểm tra thông tin → Xác nhận thanh toán';
+    document.getElementById('modal-instruction').textContent = 'Open banking app → Scan QR → Verify info → Confirm payment';
 
     // Bank info
     document.getElementById('bk-bank').textContent = SEPAY_CONFIG.bankCode;
@@ -367,8 +367,8 @@ function openSepayModal() {
     // Header màu cam SePay
     document.getElementById('modal-header').style.background = 'linear-gradient(135deg,#f97316,#ea580c)';
     document.getElementById('modal-icon').innerHTML = '<span style="font-size:22px;">⚡</span>';
-    document.getElementById('modal-title').textContent    = 'SePay — Thanh toán tự động';
-    document.getElementById('modal-subtitle').textContent = 'Quét QR · Xác nhận tức thì';
+    document.getElementById('modal-title').textContent    = 'SePay — Automatic Payment';
+    document.getElementById('modal-subtitle').textContent = 'Scan QR · Instant confirmation';
     document.getElementById('modal-amount').textContent   = total;
 
     // QR VietQR dùng tài khoản liên kết SePay
@@ -376,7 +376,7 @@ function openSepayModal() {
                 + `?amount=${rawAmt}&addInfo=${content}&accountName=${encodeURIComponent(SEPAY_CONFIG.sepayName)}`;
     document.getElementById('modal-qr-img').src = qrUrl;
     document.getElementById('modal-instruction').textContent =
-        'Mở app ngân hàng → Quét QR → Kiểm tra số tiền & nội dung → Xác nhận. SePay sẽ tự động ghi nhận!';
+        'Open banking app → Scan QR → Verify amount & content → Confirm. SePay will verify automatically!';
 
     // Hiển thị bank-info với nhãn SePay
     document.getElementById('bk-bank').textContent    = SEPAY_CONFIG.sepayBank + '  (SePay)';
@@ -389,7 +389,7 @@ function openSepayModal() {
     bankBox.style.background  = '#fff7ed';
     bankBox.style.borderColor = '#fed7aa';
     bankBox.querySelector('div').style.color = '#ea580c';
-    bankBox.querySelector('div').textContent = '⚡ THÔNG TIN SEPAY — QUAN TRỌNG: sao chép đúng nội dung CK';
+    bankBox.querySelector('div').textContent = '⚡ SEPAY INFO — IMPORTANT: copy the exact transfer content';
 
     document.getElementById('bank-info-box').style.display = 'block';
 
