@@ -24,25 +24,25 @@
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
                         <div class="mb-3">
-                            <label class="vibe-label">Full Name</label>
-                            <input type="text" name="name" required
+                            <label class="vibe-label" for="register-name">Full Name</label>
+                            <input type="text" id="register-name" name="name" required
                                 value="{{ old('name') }}"
                                 class="vibe-input" placeholder="John Smith" autofocus>
                         </div>
                         <div class="mb-3">
-                            <label class="vibe-label">Email Address</label>
-                            <input type="email" name="email" required
+                            <label class="vibe-label" for="register-email">Email Address</label>
+                            <input type="email" id="register-email" name="email" required
                                 value="{{ old('email') }}"
                                 class="vibe-input" placeholder="john@example.com">
                         </div>
                         <div class="mb-3">
-                            <label class="vibe-label">Password</label>
-                            <input type="password" name="password" required
+                            <label class="vibe-label" for="register-password">Password</label>
+                            <input type="password" id="register-password" name="password" required
                                 class="vibe-input" placeholder="Min. 8 characters">
                         </div>
                         <div class="mb-4">
-                            <label class="vibe-label">Confirm Password</label>
-                            <input type="password" name="password_confirmation" required
+                            <label class="vibe-label" for="register-password-confirm">Confirm Password</label>
+                            <input type="password" id="register-password-confirm" name="password_confirmation" required
                                 class="vibe-input" placeholder="Repeat your password">
                         </div>
                         <button type="submit" class="vibe-btn-dark w-100">
@@ -60,3 +60,7 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script src="{{ asset('js/auth-validation.js') }}"></script>
+@endpush

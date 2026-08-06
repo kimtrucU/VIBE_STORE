@@ -24,17 +24,17 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="mb-3">
-                            <label class="vibe-label">Email Address</label>
-                            <input type="email" name="email" required
+                            <label class="vibe-label" for="login-email">Email Address</label>
+                            <input type="email" id="login-email" name="email" required
                                 value="{{ old('email') }}"
                                 class="vibe-input" placeholder="john@example.com" autofocus>
                         </div>
                         <div class="mb-3">
                             <div class="d-flex justify-content-between">
-                                <label class="vibe-label">Password</label>
+                                <label class="vibe-label" for="login-password">Password</label>
                                 <a href="{{ route('password.request') }}" class="vibe-link vibe-text-xs">Forgot password?</a>
                             </div>
-                            <input type="password" name="password" required
+                            <input type="password" id="login-password" name="password" required
                                 class="vibe-input" placeholder="••••••••">
                         </div>
                         <div class="mb-4">
@@ -57,3 +57,7 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script src="{{ asset('js/auth-validation.js') }}"></script>
+@endpush
