@@ -21,7 +21,7 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('login') }}" novalidate>
                         @csrf
                         <div class="mb-3">
                             <label class="vibe-label" for="login-email">Email Address</label>
